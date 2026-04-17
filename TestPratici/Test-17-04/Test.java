@@ -12,47 +12,42 @@ public class Test {
         int tentativi = 4;
 
         ArrayList<String> listaUtenti = new ArrayList<>();
-        
-        boolean menu = true;
-        
+
+        boolean loggedIn = false;
+
         do {
-            int opzione = 0;
-            while (menu) {
+            while (!loggedIn) {
                 System.out.println("1: Login \n2: Registrazione \n3: Esci");
-                opzione = intScanner.nextInt();
+                int opzione = intScanner.nextInt();
                 switch (opzione) {
                     case 1:
                         System.out.println("Inserisci Username");
                         String uLogin = stringScanner.nextLine();
                         utenteLoggato = loginUtente(uLogin, listaUtenti);
-                        menu = false;
+                        if (utenteLoggato != null)
+                            loggedIn = true;
                         break;
                     case 2:
                         System.out.println("Inserisci un Username");
                         String uRegistrazione = stringScanner.nextLine();
                         utenteLoggato = registraUtente(uRegistrazione, listaUtenti);
-                        menu = false;
+                        if (utenteLoggato != null)
+                            loggedIn = true;
                         break;
                     case 3:
                         System.out.println("Arrivedereci");
-                        menu = false;
-                        break;
+                        return;
                     default:
                         System.out.println("opzione non valida");
                         break;
                 }
-                opzione = 0;
             }
 
-            if (!utenteLoggato.isEmpty()) {
-                System.out.println("Benvenuto " + utenteLoggato);
-                menu = true;
-            }
+            System.out.println("Benvenuto " + utenteLoggato);
 
-            while (menu && tentativi != 0) {
-                System.out.println(
-                        "1: Somma \n2: Sottrazione \n3: Moltiplicazione \n4: Divisione \n5: Potenza \n6: Esci");
-                opzione = intScanner.nextInt();
+            while (loggedIn && tentativi > 0) {
+                System.out.println("1: Somma \n2: Sottrazione \n3: Moltiplicazione \n4: Divisione \n5: Potenza \n6: Esci");
+                int opzione = intScanner.nextInt();
                 switch (opzione) {
 
                     case 1:
@@ -66,6 +61,7 @@ public class Test {
                         System.out.println(somma(numSomma));
                         tentativi--;
                         break;
+
                     case 2:
                         System.out.println("Quanti numeri vuoi inserire?");
                         int nSottrazione = intScanner.nextInt();
@@ -94,9 +90,9 @@ public class Test {
                         for (int i = 0; i < nDivisione; i++) {
                             int numero = intScanner.nextInt();
                             numDivisione.add(numero);
-                            tentativi--;
                         }
-                        System.out.println(sottrazione(numDivisione));
+                        tentativi--;
+                        System.out.println(divisione(numDivisione));
                         break;
                     case 5:
                         System.out.println("Inserisci un numero: ");
@@ -108,7 +104,8 @@ public class Test {
                         break;
                     case 6:
                         System.out.println("Logout effettuato");
-                        menu = false;
+                        loggedIn = false;
+                        tentativi = 4;
                         break;
                     default:
                         break;
@@ -116,9 +113,10 @@ public class Test {
             }
 
             if (tentativi == 0) {
+                System.out.println("tentativi finiti, esegui un nuovo login");
+                loggedIn = false;
                 utenteLoggato = "";
                 tentativi = 4;
-                menu = true;
             }
 
         } while (tentativi != 0);
@@ -162,9 +160,9 @@ public class Test {
     }
 
     static int sottrazione(ArrayList<Integer> numeri) {
-        int risultato = 1;
-        for (int n : numeri) {
-            risultato -= n;
+        int risultato = numeri.get(0);
+        for (int i = 1; i < numeri.size(); i++) {
+            risultato -= numeri.get(i);
         }
         return risultato;
     }
@@ -177,11 +175,11 @@ public class Test {
         return risultato;
     }
 
-    static int divizione(ArrayList<Integer> numeri) {
-        int risultato = 1;
+    static int divisione(ArrayList<Integer> numeri) {
+        int risultato = numeri.get(0);
         {
-            for (Integer n : numeri) {
-                risultato /= n;
+            for (int i = 1 ; i< numeri.size();i ++) {
+                risultato /= numeri.get(i);
             }
             return risultato;
         }
@@ -189,7 +187,7 @@ public class Test {
 
     static int potenza(int n, int p) {
         int risutltato = 1;
-        for (int i = 1; i < p; i++) {
+        for (int i = 0; i < p; i++) {
             risutltato *= n;
         }
         return risutltato;
