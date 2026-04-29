@@ -22,6 +22,7 @@ public class Main {
             System.out.print("Scegli un'opzione: ");
             int scelta = myIntScanner.nextInt();
             switch (scelta) {
+                //AGGIUNTA DI UN UTENTE E SALVATAGGIO IN ARRAYLIST PRESENTE IN dbManager
                 case 1:
                     System.out.print("Inserisci nome: ");
                     String nome = myStringScanner.nextLine();
@@ -34,6 +35,7 @@ public class Main {
                     System.out.println("Utente aggiunto: " + utente);
                     break;
                 case 2:
+                    //RECUPERO DELLA LISTA DI UTENTI PER POI SCEGLIERE QUALE MODIFICARE
                     System.out.println("Quale utente vuoi modificare?");
                     for (Utente u : dbManager.getUtenti()) {
                         System.out.println(u);
@@ -62,6 +64,7 @@ public class Main {
                     }
                     break;
                 case 3:
+                    //SELEZIONE DI UN UTENTE DA ELIMINARE PRESENTE NEL DB
                     System.out.println("Quale utente vuoi eliminare?");
                     for (Utente u : dbManager.getUtenti()) {
                         System.out.println(u);
@@ -82,6 +85,7 @@ public class Main {
                     }
                     break;
                 case 4:
+                    //STAMPA DI TUTTI GLI UTENTI ATTUALMENTE REGISTRATI
                     System.out.println("Utenti registrati:");
                     for (Utente u : dbManager.getUtenti()) {
                         System.out.println(u);
