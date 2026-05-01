@@ -12,7 +12,6 @@ public class Main {
 
         NotifyManager manager = NotifyManager.getInstance();
         ArrayList<Utente> utenti = new ArrayList<>();
-        Utente utenteLoggato = null;
         boolean loop = true;
 
         do{
@@ -27,6 +26,7 @@ public class Main {
                     String nomeUtente = myStringScanner.nextLine();
                     Utente nuovoUtente = new Utente(nomeUtente);
                     utenti.add(nuovoUtente);
+                    manager.notifica("Nuovo utente registrato: " + nomeUtente);
                     break;
                 case 2:
                     System.out.println("Inserisci nome utente per il login:");
@@ -37,21 +37,21 @@ public class Main {
                             break;
                         }
                     }
-                    if (utenteLoggato == null) {
+                    if (manager.getUtenteLoggato() == null) {
                         System.out.println("Utente non trovato.");
                     }
                     break;
                 case 3:
-                    if (utenteLoggato != null) {
-                        manager.registraObserver(utenteLoggato);
+                    if (manager.getUtenteLoggato() != null) {
+                        manager.registraObserver(manager.getUtenteLoggato());
                         System.out.println("Registrazione alle notifiche avvenuta con successo.");
                     } else {
                         System.out.println("Effettua il login per registrarti alle notifiche.");
                     }
                     break;
                 case 4:
-                    if (utenteLoggato != null) {
-                        manager.rimuoviObserver(utenteLoggato);
+                    if (manager.getUtenteLoggato() != null) {
+                        manager.rimuoviObserver(manager.getUtenteLoggato());
                         System.out.println("Cancellazione registrazione dalle notifiche avvenuta con successo.");
                     } else {
                         System.out.println("Effettua il login per cancellare la registrazione dalle notifiche.");
@@ -64,5 +64,8 @@ public class Main {
                     System.out.println("Scelta non valida.");
             }
         }while(loop);
+
+        myIntScanner.close();
+        myStringScanner.close();
     }
 }

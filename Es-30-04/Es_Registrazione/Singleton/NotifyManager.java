@@ -19,12 +19,16 @@ public class NotifyManager implements Subject {
 
     public boolean login(Utente u){
         if(utenteLoggato != null) {
-            System.out.println("Utente " + u.getNome() + "è già loggato" );
+            System.out.println("Utente " + utenteLoggato.getNome() + " è già loggato" );
             return false;
         }
         utenteLoggato = u;
         System.out.println("Utente " + u.getNome() + " ha effettuato il login");
         return true;
+    }
+
+    public Utente getUtenteLoggato() {
+        return utenteLoggato;
     }
     
     public static NotifyManager getInstance() {
@@ -37,12 +41,12 @@ public class NotifyManager implements Subject {
 
 
     @Override
-    public void registraObserver(Es_Registrazione.Observer.Observer o) {
+    public void registraObserver(Observer o) {
         observers.add(o);
     }
 
     @Override
-    public void rimuoviObserver(Es_Registrazione.Observer.Observer o) {
+    public void rimuoviObserver(Observer o) {
         observers.remove(o);
     }
 
