@@ -7,8 +7,11 @@ sono presenti i concetti base della programmazione a oggetti e dei pattern per l
 Consolidare i concetti fondamentali della programmazione in Java
 
 -Applicare correttamente i principi OOP
+
 -Utilizzare i design pattern in modo pulito, modulare e riproducibile
+
 -Prepararsi a progetti più complessi e a contesti professionali
+
 -Mantenere uno stile di codice chiaro, didattico e facilmente estendibile
 
 📂 Struttura della Repository
