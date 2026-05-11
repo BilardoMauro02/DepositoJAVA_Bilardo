@@ -1,0 +1,36 @@
+ESERCITAZIONE FINE GIORNATA QUERY JOIN
+
+/*INNER JOIN + WHERE + LIKE */
+SELECT libri.titolo, libri.autore, vendite.data_vendita, vendite.negozio
+FROM libri
+INNER JOIN vendite ON libri.id = vendite.id_libro
+WHERE libri.titolo LIKE '%KING%';
+
+/*LEFT JOIN + WHERE +BETWEEN*/
+SELECT libri.titolo  , libri.anno_pubblicazione, libri.prezzo, vendite.data_vendita
+FROM libri
+LEFT JOIN vendite ON libri.id = vendite.id_libro
+WHERE libri.anno_pubblicazione BETWEEN 2000 and 2010;
+
+/*INNER JOIN + WHERE + IN*/
+SELECT libri.titolo, vendite.negozio, vendite.quantita, vendite.quantita * libri.prezzo as prezzo_totale
+FROM libri
+INNER JOIN vendite ON libri.id = vendite.id_libro
+WHERE vendite.negozio IN ("9 Oriole Lane", "98558 Milwaukee Point", "98016 Esch Trail");
+
+/*RIGHT JOIN + WHERE + LIKE + BETWEEN*/
+SELECT libri.titolo, vendite.data_vendita, libri.prezzo, vendite.quantita
+FROM libri
+RIGHT JOIN vendite ON libri.id = vendite.id_libro
+WHERE vendite.data_vendita BETWEEN '2020-01-01' and '2022-12-31' 
+AND LOWER(vendite.negozio) LIKE '%Drive%';
+
+/*INNER JOIN + WHERE combinato*/
+SELECT libri.titolo, libri.autore, libri.prezzo, vendite.data_vendita
+FROM libri
+INNER JOIN vendite ON libri.id = vendite.id_libro
+WHERE libri.genere IN ("Fantasy", "Horror", "Drama")
+AND vendite.data_vendita > '2015-12-31'
+AND LOWER(vendite.negozio) LIKE '%plaza%'
+AND libri.genere NOT LIKE '%,%'
+ORDER BY vendite.data_vendita DESC;
