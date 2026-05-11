@@ -1,0 +1,33 @@
+SELECT clienti2.nome, ordini.data_ordine, ordini.importo
+FROM clienti2
+INNER JOIN ordini ON clienti2.id = id_cliente
+ORDER BY clienti2.nome ASC;
+/*CREA UN LEGAME TRA CLIENTI2 E ORDINI PRENDENDO SOLO GLI ELEMENTI RICHIESTI*/
+SELECT clienti2.nome, ordini.data_ordine, ordini.importo
+FROM ordini
+INNER JOIN clienti2 ON ordini.id_cliente = clienti2.id
+ORDER BY clienti2.nome ASC;
+
+/*CREA UN LEGAME TRA CLIENTI2 E ORDINI USANDO UN LEFT JOIN (RECUPERA I DATI DELLA CLASSE CLIENTI2 MOSTRANDO I CLIENTI SENZA ORDINE)*/
+SELECT clienti2.nome, ordini.data_ordine, ordini.importo
+FROM clienti2
+LEFT JOIN ordini ON ordini.id_cliente = clienti2.id
+ORDER BY clienti2.nome ASC;
+
+SELECT clienti2.nome, COUNT(ordini.id) as totale_ordini, SUM(ordini.importo) as totale_importo
+FROM clienti2
+INNER JOIN ordini ON clienti2.id = ordini.id_cliente
+GROUP BY clienti2.nome;
+
+SELECT clienti2.nome, clienti2.citta, ordini.id
+FROM clienti2
+LEFT JOIN ordini ON clienti2.id = ordini.id_cliente
+WHERE ordini.id IS NULL;
+
+INSERT INTO ordini (id, id_cliente, data_ordine, importo)
+VALUES (123, null, '2012-12-12', 54312.93);
+
+SELECT ordini.id, ordini.data_ordine, ordini.importo, ordini.id_cliente
+FROM clienti2
+RIGHT JOIN ordini ON ordini.id_cliente = clienti2.id
+WHERE ordini.id_cliente IS NULL;
